@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inscripción de Estudiantes{% endblock %}
+
+{% block content %}
+<div class="dashboard-content">
+    <h2>Inscripción de Estudiantes a Cursos</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="estudiante">Seleccionar Estudiante:</label>
+            <select name="estudiante" id="estudiante" required>
+                {% for estudiante in estudiantes %}
+                    <option value="{{ estudiante.id }}">{{ estudiante.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="curso">Seleccionar Curso:</label>
+            <select name="curso" id="curso" required>
+                {% for curso in cursos %}
+                    <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="asignatura">Seleccionar Asignatura:</label>
+            <select name="asignatura" id="asignatura" required>
+                {% for asignatura in asignaturas %}
+                    <option value="{{ asignatura.id }}">{{ asignatura.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Inscribir</button>
+    </form>
+</div>
+{% endblock %}

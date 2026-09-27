@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Listado de Cursos{% endblock %}
+
+{% block content %}
+<div class="dashboard-content">
+    <h2>Listado de Cursos y Asignaturas</h2>
+
+    {% if cursos %}
+        <div class="courses-grid">
+            {% for curso in cursos %}
+                <div class="course-card">
+                    <h3>{{ curso.nombre }}</h3>
+                    <p><strong>Descripción:</strong> {{ curso.descripcion }}</p>
+
+                    {% if curso.asignaturas.all %}
+                        <h4>Asignaturas:</h4>
+                        <ul>
+                            {% for asignatura in curso.asignaturas.all %}
+                                <li>{{ asignatura.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay asignaturas registradas.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay cursos registrados.</p>
+    {% endif %}
+</div>
+{% endblock %}

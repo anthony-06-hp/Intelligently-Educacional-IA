@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}INTELLIGENTLY{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <img src="{% static 'img/LOGO.png' %}" alt="Logo Intelligently" class="logo-img">
+        </div>
+        <nav class="nav-menu">
+            <a href="{% url 'home' %}" class="nav-item active">
+                <span class="nav-icon">🏠</span><span>Home</span>
+            </a>
+            <a href="{% url 'recursos:recursos_home' %}" class="nav-item">
+                <span class="nav-icon">📊</span><span>Recursos Grabados</span>
+            </a>
+            <a href="{% url 'core:core_home' %}" class="nav-item">
+                <span class="nav-icon">👥</span><span>Cursos-Asignaturas</span>
+            </a>
+            <a href="{% url 'calendario:calendario' %}" class="nav-item">
+                <span class="nav-icon">📅</span><span>Calendar</span>
+            </a>
+            <a href="{% url 'reportes:reportes_home' %}" class="nav-item">
+                <span class="nav-icon">📈</span><span>Informes Inteligentes</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="{% url 'accounts:profile' %}" class="nav-item">
+                <span class="nav-icon">⚙️</span><span>Ver Perfil</span>
+            </a>
+            <button class="nav-item">
+                <span class="nav-icon">❓</span><span>Ayuda</span>
+            </button>
+            <button class="nav-item" id="logout-btn" type="button">
+                <span class="nav-icon">🚪</span><span>Log Out</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <div class="header-right">
+                <span class="header-subtitle">Promedio de Aprendizaje de los estudiantes</span>
+                <button class="iniciar-clase-btn">
+                    <span>▶</span> Iniciar clase
+                </button>
+                <div class="user-menu">
+                    <span>🔄</span>
+                    <span>📝</span>
+                    <div class="user-avatar">
+                        {% if user.first_name %}
+                            {{ user.first_name.0|upper }}
+                        {% else %}
+                            {{ user.username.0|upper }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido dinámico -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Logout Form oculto -->
+    <form id="logout-form" method="post" action="{% url 'accounts:logout' %}" style="display: none;">
+        {% csrf_token %}
+    </form>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

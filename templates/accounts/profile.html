@@ -1,0 +1,126 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .perfil-container {
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .perfil-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .perfil-container .campo {
+        margin-top: 12px;
+    }
+
+    .perfil-container .campo label {
+        font-weight: bold;
+        font-size: 14px;
+        display: block;
+    }
+
+    .perfil-container .campo .valor {
+        margin-top: 4px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .perfil-container img {
+        display: block;
+        margin: 20px auto;
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
+</style>
+
+<div class="perfil-container">
+    <h2>Mi Perfil</h2>
+
+    {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Foto de perfil">
+    {% endif %}
+
+    <div class="campo">
+        <label>Nombre completo:</label>
+        <div class="valor">{{ user.full_name }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Email:</label>
+        <div class="valor">{{ user.email }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Teléfono:</label>
+        <div class="valor">{{ user.mobile }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Institución:</label>
+        <div class="valor">{{ user.institution }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Grado:</label>
+        <div class="valor">{{ user.degree }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Especialidad:</label>
+        <div class="valor">{{ user.major }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Año de graduación:</label>
+        <div class="valor">{{ user.graduation_year }}</div>
+    </div>
+
+    <div class="campo">
+        <label>GPA:</label>
+        <div class="valor">{{ user.gpa }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Fecha de nacimiento:</label>
+        <div class="valor">{{ user.date_of_birth }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Género:</label>
+        <div class="valor">
+            {% for val, label in user.GENDER_CHOICES %}
+                {% if user.gender == val %}
+                    {{ label }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="campo">
+        <label>País:</label>
+        <div class="valor">{{ user.country }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Ciudad:</label>
+        <div class="valor">{{ user.city }}</div>
+    </div>
+
+    <div class="campo">
+        <label>Intereses:</label>
+        <div class="valor">{{ user.interests }}</div>
+    </div>
+</div>
+{% endblock %}
